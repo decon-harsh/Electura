@@ -14,7 +14,7 @@ class UploadedFilesSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     files = UploadedFilesSerializer(many=True,read_only=True)
-
+    # files = serializers.StringRelatedField(many=True)
     class Meta:
         model = User
         fields = ('id', 'username', 'email' ,'password','files')

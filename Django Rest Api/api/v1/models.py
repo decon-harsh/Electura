@@ -10,7 +10,7 @@ class UploadedFile(models.Model):
     
 
     def __str__(self):
-        return str(self.user)
+        return 'User : %s , File Name : %s ' %(self.user,self.name)
     
     class Meta():
         ordering = ('id',)        
