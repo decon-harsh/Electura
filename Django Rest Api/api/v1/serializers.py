@@ -7,12 +7,10 @@ from . import models
 
 User = get_user_model()
 
-
 class UploadedFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UploadedFile
         fields = "__all__"
-
 
 class UserSerializer(serializers.ModelSerializer):
     files = UploadedFilesSerializer(many=True,read_only=True)
