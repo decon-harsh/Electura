@@ -10,9 +10,11 @@ from rest_framework.decorators import action
 
 from . import models, serializers
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
+
 
 class UploadedFilesViewSet(viewsets.ModelViewSet):
     queryset = models.UploadedFile.objects.all()
