@@ -7,20 +7,21 @@ from . import models
 
 User = get_user_model()
 
+
 class UploadedFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UploadedFile
         fields = "__all__"
 
+
 class UserSerializer(serializers.ModelSerializer):
-    files = UploadedFilesSerializer(many=True,read_only=True)
+    files = UploadedFilesSerializer(many=True, read_only=True)
     # files = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'email' ,'password','files')
-        extra_kwargs = {
-            "password": {"write_only": True}
-        }
+        fields = ("id", "username", "email", "password", "files")
+        extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
         hashed_pass = make_password(validated_data.pop("password"))
@@ -32,8 +33,6 @@ class UserSerializer(serializers.ModelSerializer):
         if validated_data.get("password"):
             if validated_data.get("password") != "":
 
-                instance.password = make_password(
-                    validated_data.pop("password"))
+                instance.password = make_password(validated_data.pop("password"))
         updated_instance = super().update(instance, validated_data)
-        return updated_instance        
-
+        return updated_instance

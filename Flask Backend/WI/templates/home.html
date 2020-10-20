@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{%block content%}
+<br>
+<br>
+<style>
+  body {
+    /* The image used */
+    background: url("/static/image/snowyhills.jpg");
+    /* Full height */
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+<div class="container-fluid p-3 my-3 bg-primary text-white">
+  <h1>
+    <font color="white">
+      <center>Your Previous files</center>
+    </font>
+  </h1>
+  <!-- <p>This container has a border and some extra padding and margins.</p> -->
+</div>
+
+{%for file in files%}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+                <a class="mr-2" href="#">{{ file.author }}</a>
+                <small class="text-muted">{{ file.date }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ file.title }}</a></h2>
+    <p class="article-content">{{file}}</p>
+  </div>
+</article>
+{%endfor%}
+{%endblock%}
