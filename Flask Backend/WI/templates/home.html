@@ -25,15 +25,35 @@
   </h1>
   <!-- <p>This container has a border and some extra padding and margins.</p> -->
 </div>
+<form method="POST" action="" enctype = "multipart/form-data" style="margin-top: 200px; background-color: transparent;">
+  {{form.hidden_tag()}}
+  <fieldset class="form-group">
+    <div class="form-group">
 
+      {%if form.file.errors%}
+      {{form.file(class="form-control form-control-lg is-invalid")}}
+      <div class="invalid-feedback">
+        {%for error in form.file.errors%}
+        <span>{{error}}</span>
+        {%endfor%}
+      </div>
+      {%else%}
+      {{ form.file(class="form-control form-control-lg")  }}
+      {%endif%}
+    </div>
+  </fieldset>
+  <div class="form-group">
+    {{form.submit(class="btn btn-info")}}
+  </div>
+</form>
 {%for file in files%}
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
-                <a class="mr-2" href="#">{{ file.author }}</a>
-                <small class="text-muted">{{ file.date }}</small>
-            </div>
-            <h2><a class="article-title" href="#">{{ file.title }}</a></h2>
+      <a class="mr-2" href="#">{{ file.author }}</a>
+      <small class="text-muted">{{ file.date }}</small>
+    </div>
+    <h2><a class="article-title" href="#">{{ file.title }}</a></h2>
     <p class="article-content">{{file}}</p>
   </div>
 </article>

@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -13,7 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
 db=SQLAlchemy(app)
 bcrypt=Bcrypt(app)
 login_manager=LoginManager(app)
-
+os.makedirs(os.path.join(app.instance_path, 'localFileFolder'), exist_ok=True)
 
 
 from WI import routes

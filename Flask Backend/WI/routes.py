@@ -4,10 +4,10 @@ import os,shutil
 import json
 from flask import render_template,url_for,flash,redirect,request
 from WI import app,db,bcrypt,login_manager
-from WI.forms import Registration,Login,Login_via_email,suggestion
+from WI.forms import Registration,Login,suggestion,UploadFile
 from WI.models import User,load_user
 from flask_login import login_user,current_user,logout_user,login_required
-
+from werkzeug.utils import secure_filename
 
 
 
@@ -68,10 +68,16 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def home():
     if current_user.is_authenticated:
-        return render_template('home.html')
+        form = UploadFile() 
+        if form.validate_on_submit():
+            f=form.file.data
+            filename=secure_filename(f.filename)
+            f.save(os.path.join(app.instance_path,'localFileFolder',filename))
+            flash('File Uploaded Successfully','success')
+        return render_template('home.html',form=form)
     else:
         flash(f"You have to Login first",'warning')
         return redirect(url_for('login'))

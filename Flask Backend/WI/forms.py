@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
+from flask_wtf.file import FileField, FileRequired
 from wtforms import StringField,PasswordField,SubmitField,BooleanField,TextAreaField,MultipleFileField
 from wtforms.validators import DataRequired,Length,Email,EqualTo,ValidationError
 import random
@@ -30,44 +30,12 @@ class Registration(FlaskForm):
             raise ValidationError(f'''That username is taken please try another.\n You can try {suggestion(user.username)} as username''')         
     
       
-
-
 class Login(FlaskForm):
     username=StringField("Username",validators=[DataRequired(),Length(min=2,max=20)])
     password=PasswordField("Password",validators=[DataRequired()])
     submit=SubmitField('Login')
     remember=BooleanField('remember me')
 
-
-class Login_via_email(FlaskForm):
-    email=StringField("Email",validators=[DataRequired(),Email()])
-    password=PasswordField("Password",validators=[DataRequired()])
-    submit=SubmitField('Login')
-    remember=BooleanField('remember me')    
-
-
-# class UpdateAccountForm(FlaskForm):
-#     username=StringField("Username",validators=[DataRequired(),Length(min=2,max=20)])
-#     email=StringField("Email",validators=[DataRequired(),Email()])
-#     bio=StringField("Bio",validators=[Length(max=144)])
-#     picture=FileField("Update profile picture", validators=[FileAllowed(['jpeg','jpg','png'])])
-#     submit=SubmitField('Update')
-
-#     def validate_username(self,username):
-#         if current_user.username!=username.data:
-#             user=User.query.filter_by(username=username.data).first()
-#             if user:
-#                 raise ValidationError(f'''That username is taken please try another.\n You can try {suggestion(user.username)} as username''')         
-    
-#     def validate_email(self,email):
-#         if current_user.email!=email.data:    
-#             user=User.query.filter_by(email=email.data).first()
-#             if user:
-#                 raise ValidationError(f"That email has already been registerd with us")
-
-
-# class New_Post_Form(FlaskForm):
-#     Caption=StringField("Title")
-#     Photo=MultipleFileField("Add photos",validators=[FileAllowed(['jpeg','png','jpg'])])
-#     Content=TextAreaField("Content",validators=[DataRequired()])
-#     submit=SubmitField('Post')
+class UploadFile(FlaskForm):
+    file=FileField(validators=[FileRequired()])
+    submit=SubmitField('Upload')
